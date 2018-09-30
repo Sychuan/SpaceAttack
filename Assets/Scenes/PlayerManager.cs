@@ -16,10 +16,6 @@ public class PlayerManager : MonoBehaviour {
     void Start () {
         rb2 = GetComponent<Rigidbody2D>();
         trans = GetComponent<Transform>();
-       
-
-       
-
     }
 
     void Fire()
@@ -33,9 +29,7 @@ public class PlayerManager : MonoBehaviour {
     }
 	
 	// Update is called once per frame
-	void FixedUpdate () {
-
-        
+	void FixedUpdate () {        
         var x = trans.position.x;
         var y = trans.position.y;
         Vector2 force = new Vector2(0, 0);
@@ -57,13 +51,13 @@ public class PlayerManager : MonoBehaviour {
         }
 
 
-        //trans.rotation = Quaternion.Euler(0, 0, 45);
-        
-        horizontalForce = Input.GetAxis("Horizontal");
-        //trans.Rotate(0, 0, 1);
-        rb2.AddForce(force* horizontalForce, ForceMode2D.Impulse);
-       
 
+        float x_pos = trans.position.x;
+        float y_pos = trans.position.y;
+        float theta = Mathf.Atan2(y_pos, x_pos)*Mathf.Rad2Deg;            
+        trans.rotation = Quaternion.Euler(0, 0, theta-90);
+        horizontalForce = Input.GetAxis("Horizontal");        
+        rb2.AddForce(force* horizontalForce, ForceMode2D.Impulse);
         if (Input.GetButtonDown("Jump"))
             {
             Fire();
